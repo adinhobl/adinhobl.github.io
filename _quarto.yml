@@ -5,12 +5,12 @@ website:
   open-graph: true
   title: "Andrew Dinhobl"
   description: "Andrew's personal blog"
+  draft-mode: unlinked
   navbar:
     left:
       - text: Posts
         file: index.qmd
       - projects.qmd
-      - notes/index.qmd
     right:
       - icon: twitter
         href: https://x.com/adinhobl

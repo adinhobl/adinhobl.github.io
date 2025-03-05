@@ -3,6 +3,10 @@ title: "Starting Proyoy"
 description: "I need to train a model to play that game"
 date: "2025-03-04"
 categories: [news, llm, rl]
+draft: true
+
 ---
+
+<!-- TODO add image -->
 
 Started working on a game emulator

@@ -3,6 +3,8 @@ title: Projects
 toc: true
 comments: false
 author: ''
+draft: true
+
 ---
 
 Some info about my projects

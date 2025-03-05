@@ -3,6 +3,7 @@ title: "Paper Template"
 description: "Notes from reading the paper"
 date: "2025-03-04"
 categories: [paper]
+draft: true
 ---
 
 Some notes

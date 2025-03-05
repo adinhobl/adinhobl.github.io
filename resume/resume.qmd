@@ -1,0 +1,108 @@
+---
+format:
+  typst:
+    papersize: us-letter
+    margin:
+      top: 0.4in
+      bottom: 0.4in
+      left: 0.4in
+      right: 0.4in
+    columns: 1
+    keep-typ: false
+editor:
+  render-on-save: true # https://quarto.org/docs/tools/vscode.html#render-on-save
+---
+
+```{=typst}
+#let style_institution(institution) = {
+  set text(weight: "bold", fill: rgb("#26428b"))
+  institution
+}
+
+#let style_role(role) = {
+  set text(style: "italic")
+  role
+}
+
+#let style_dates(dates) = {
+  set text(style: "italic")
+  dates
+}
+
+
+#let job_entry(institution, role, dates) = {
+  let inst = style_institution(institution)
+  let rol = style_role(role)
+  let dats = style_dates(dates)
+
+  grid(columns: (1.5fr, 0.5fr), align(left)[#inst — #rol], align(right)[#dats])
+}
+
+#show heading.where(
+  level: 1
+): it => block(width: 100%)[
+  #set align(center)
+  #set text(size: 22pt, font: "Oswald", weight: "regular")
+  #smallcaps(it.body)
+]
+
+#show heading.where(
+  level: 2
+): it => block(width: 100%)[
+  #set pad(bottom: 1pt)
+  #set text(font: "Oswald", weight: "regular")
+  #it.body
+]
+
+#set page(numbering: none)
+#set par(leading: 0.8em, justify: false)
+#set text(font:"Source Code Pro", size: 10pt)
+
+#pad(bottom: 2pt)[= ANDREW DINHOBL]
+
+#align(center)[#text(fill: gray, size: 0.8em)[andrewdinhobl\@gmail.com | (281) 222-0598 | #link("https://www.linkedin.com/in/andrew-dinhobl") | #link("https://github.com/adinhobl")]]
+
+#line(length: 100%, stroke: (thickness: 0.25pt, paint: gray))
+
+== EXPERIENCE
+// try to phrase like this: "Accomplished X by implementing Y which led to Z" - show what you did, how you did it, and what it lead to
+// Example: "Reduced object rendering time by 75% by implementing distributed caching, leading to a 10% reduction in log-in time"
+
+#job_entry("ASAPP, Inc.", "Research Engineer", "May 2022 - Present")
+- LLM Post-training, data curation, synthetic data, learning from feedback
+- Work with production engineers to incorporate ideas into flagship agentic product
+- Wrote Simulation environment for LLM testing and evaluation on real-world tasks
+- Created multi-task evaluation package which reduced product iteration times from months to weeks
+- Deploying model inference services to accelerate PoCs and new feature timelines
+- ML Systems for UI Automation
+
+#job_entry("Citrine Informatics", "Data & AI Research Engineer", "May 2021 - Aug. 2021")
+- Created a software package to preprocess and featurize time-series data, train ML models, then perform statistical tests to identify useful trends and features. 
+- Presented performance on multiple datasets. Created demos, documentation, and unit tests.
+
+#job_entry("Imubit, Inc.", "Technical Implementation Engineer", "Aug. 2019 - May 2021")
+- Designed, evaluated, and deployed deep reinforcement learning models for closed-loop process control and asset optimization. 
+- Prioritized R&D efforts in Product, tracked model test cases, established operational metrics, and scoped features for the on-prem application across several client sites.
+- Pipelined historical and real-time client data (time-series and signals) from multiple sources. Incorporated domain expertise into data processing and modeling.
+- Worked directly with largest client to acheive operational excellence and deliver new features and projects.
+
+#job_entry("Evonik Corporation", "Process Engineer", "July 2016 - Aug. 2019")
+- Developed complex processes on large (\~\$2-500 million), international capital projects.
+- Iteratively improved processes for business value; engineering design integrity, project management.
+
+
+== SKILLS
+
+Python, PyTorch, Huggingface, vLLM/TGI, AWS, LLM APIs, Docker, Quantization, Pandas, Jupyter, Scikit-learn, Ray/RLlib, Julia, Git, Linux, CUDA, Kubernetes, C, OpenMP, MPI
+
+
+== EDUCATION
+
+#job_entry("Georgia Institute of Technology", "M.S. Computer Science", "Aug. 2019 - May 2022")
+- Autoencoders for Drug Discovery with SMILES, Neural Networks on Point-Cloud data, Multi-Agent Simulations with RLlib; ML, DL, RL, HPC
+
+#job_entry("The University of Texas", "B.S. Chemical Engineering", "Aug. 2012 - May 2016")
+- Applied polymer chemistry to nano-patterning applications with 3 publications.
+
+```
+

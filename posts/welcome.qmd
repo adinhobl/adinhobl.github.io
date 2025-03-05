@@ -3,8 +3,14 @@ title: "Welcome To My Blog"
 description: "My first post here."
 date: "2025-03-04"
 categories: [news]
+draft: true
 ---
+
+<!-- TODO add image -->
 
 This is the first post in a Quarto blog. Welcome!
 
 
+Really liking quarto and its flexibility.
+
+Also excited about FastHTML
