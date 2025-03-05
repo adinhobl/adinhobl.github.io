@@ -27,7 +27,7 @@ draft: true
 :::{#about}
 I am an experienced ... with interests in 
 
-I have diverse experience .... Here's my [resume](resume/resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/), if that's what you are looking for.
+I have diverse experience .... Here's my [resume](resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/) if they interest you.
 
 When I'm not ...
 

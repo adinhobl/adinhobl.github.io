@@ -19,6 +19,8 @@ website:
       - icon: github
         href: https://github.com/adinhobl
   repo-url: https://github.com/adinhobl/adinhobl.github.io
+  twitter-card:
+    creator: "@adinhobl"
 format:
   html:
     theme: lux
