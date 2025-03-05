@@ -6,3 +6,8 @@ author: ''
 ---
 
 Some info about my projects
+
+## 2025
+
+### Proyoy
+A [game](./posts/starting-proyoy.qmd) I'm working on. 
