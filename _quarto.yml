@@ -1,0 +1,28 @@
+project:
+  type: website
+
+website:
+  open-graph: true
+  title: "Andrew Dinhobl"
+  navbar:
+    left:
+      - text: Posts
+        file: index.qmd
+      - text: Projects
+        file: projects.qmd
+    right:
+      - icon: twitter
+        href: https://x.com/adinhobl
+      - icon: linkedin
+        href: https://www.linkedin.com/in/andrew-dinhobl/
+      - icon: github
+        href: https://github.com/adinhobl
+  repo-url: https://github.com/adinhobl/adinhobl.github.io
+format:
+  html:
+    theme: litera
+    css: styles.css
+
+
+
+# TODO set up giscus https://giscus.app/
