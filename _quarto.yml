@@ -5,6 +5,7 @@ website:
   open-graph: true
   title: "Andrew Dinhobl"
   description: "Andrew's personal blog"
+  favicon: favicon.ico
   draft-mode: unlinked
   navbar:
     left:
