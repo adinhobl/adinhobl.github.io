@@ -1,0 +1,38 @@
+---
+title: "Training Large Language Models to Reason in a Continuous Latent Space"
+description: "A Paper Review"
+date: "2025-03-08"
+categories: [llm]
+draft: false
+toc: false
+# css: styles.css
+---
+
+A paper [talk](coconut_presentation/){target="_blank"} I virutally gave to Kilian Weinberger's group at Cornell about FAIR's recent [Training Large Language Models to Reason in a Continuous Latent Space](https://arxiv.org/abs/2412.06769) paper.  
+
+
+
+<div>
+```{=html}
+<figure>
+    <iframe class="slide-deck" src="coconut_presentation/"></iframe>
+    <figcaption>Click on it, then hit the left/right keys</figcaption>
+</figure>
+
+```
+</div>
+
+- Really seems more like a distillation technique for a very targeted domain where a "step" is a very concrete idea.  
+    - This would explain the GSM8k result, since that is a much more open-ended reasoning dataset with more emphasis on natural language understanding.  
+
+- This model that has been pretrained on text, and capturing all it's embedding manipulations in a single token with each step, now has a view into the full embedding space. This isn't something it normally sees.  
+    - This might explain why they have to do such an extensive multi-stage, many epoch training routine - to anneal the model into understanding the continuous thought tokens in the same domain as the tokens.
+
+
+- Someone in the discussion questioned the effectiveness of merging the token embedding space with the "reasoning" embedding space, but I actually
+
+- Really wished they explored the binary classifier for switching between continuous thoughts and text outputs. This seems like a natural way for the model to decide when to display outputs. 
+    - Potentially in a continuous, constantly streaming way?
+
+- Paper generally has some good ideas, but is more like a distillation method than outright training. No attempt is made to show how this generalized, lkely because it doesn't at all.  
+- However, there is is a kernel of something really good in there. The continuous thoughts are probably a step in the right direction.  

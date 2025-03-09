@@ -25,9 +25,10 @@ website:
 format:
   html:
     theme: lux
-    mainfont: Roboto
-    css: styles.css
+    css: styles.scss
     toc: true
+  revealjs: 
+    css: sytles.scss
 
 
 

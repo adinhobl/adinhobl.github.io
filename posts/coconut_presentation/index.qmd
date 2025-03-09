@@ -1,0 +1,283 @@
+---
+title: Coconut
+subtitle: Training Large Language Models to Reason in a Continuous Latent Space
+author: "Andrew Dinhobl"
+title-block-banner: false
+format: 
+    revealjs:
+        theme: default
+        slide-number: true
+        preview-links: true
+        footer: |
+            [paper](https://arxiv.org/html/2412.06769v2)
+        smaller: true
+        scrollable: true
+        chalkboard: 
+            theme: whiteboard
+            chalk-width: 5
+        fig-align: center
+        title-slide-attributes: 
+            data-notes: Today I'm presenting a paper from FAIR at Meta called "Training Large Language Models to Reason in a Continuous Latent Space". COCONUT stands for Chain of Continuous Thought, but their paper claims to better than CoT, so it's an interesting acronym. I think the word "distillation" should be somewhere in the title, but we'll get to that.
+
+---
+
+## General Concept
+![](media/overview.png)  
+- 2 modes: language model and latent mode  
+- use `<bot>` and `<eot>` tokens to demarcate thoughts
+
+<br/>
+<hr>
+
+#### Equations
+
+- $x = (x_1, ..., x_T)$ some input sequence of tokens to time $T$:  
+- $e(\cdot)$ is token embedding function  
+- $E_t = [e(x_1), e(x_2), ..., e(x_t)]$  sequence of token embeddings up to position $t$  
+- $H_t = \text{Transformer}(E_t)$; $H_t \in \mathbb{R}^{t \times d}$  
+- $h_t$ is last hidden state at position $t$; $h_t=H_t[t, :]$  
+- Transformer model $M(x_{t+1}\mid x_{\leq t}) = \text{softmax}(Wh_t)$  
+- $W$ is the parameter of the language model head  
+
+  
+$E_t=[e(x_1), e(x_2), ..., e(<bot>), h_i, h_{i+1}, ..., h_{j-1}, e(<eot>), ..., e(x_t)]$
+
+<br/>
+
+::: {.notes}
+
+The authors start with an observation:  
+- "most word tokens are primarily for textual coherence and not essential for reasoning, while some critical tokens require complex planning and pose huge challenges to LLMs."  
+    - but that llms give the same computing budget to each token  
+
+So what's the general concept:  
+
+- [walk through diagram]  
+    - In normal language modeling, you give a prompt, and then autoregressively generate next tokens, and feed them back as the input.  
+    - In CoT, you generate a lot of these tokens before generating a final answer  
+    - This allows the model to "reason" in text space  
+    - In this COCONUT paradigm, after a specific beginning-of-thought token, rather than decoding the transformer output embedding into a word token, it's fed back to the LLM as the subsequent input embedding directly in the continuous space"  
+    - then there is some end-of-thought token and the model switches back into text outputs  
+
+- I have some equations for this we can walk through.
+    - run the transformer blocks to get the hidden states for each token 
+    - normally in your transformer model M, you decode the embeddings to tokens with softmax
+    - but in COCONUT, you just pass the output embeddings as the next input embeddings, bypassing tokenization and embedding
+:::
+
+
+<!-- ------------------------------------------------------------------------------------- -->
+## Interpretability
+::: {.incremental}
+- Interpretability 🐘: Is this good? 
+    - Performance ↑, intepretability ↓
+    - CoT / R1: "Wow! I can see what the model is thinking!"
+    - Interpretability was already [questionable](https://arxiv.org/html/2305.04388v2)
+
+- ![](media/miles.png)
+:::
+
+::: {.notes}
+
+So this obviously has implications for interpretability.
+
+They make a few arguments about this:  
+- The interpretability of reasoning traces was already suspect.  
+- Language is low bandwidth compared to models  
+    - I think it's unlikely that natural langauge will be the way models reason long term if we are optimizing for performance and cost.  
+- But also, I wouldn't get scared based on just paper; but the GPT4 version will be  
+
+:::
+
+<!-- ------------------------------------------------------------------------------------- -->
+## Datasets 
+- 3 datasets: augmented GSM8k + 2 constructed reasoning datasets  
+- Note that a step is a reasoning step composed of many tokens  
+![](media/questions.png){fig-align="center"}  
+
+<br/>
+<hr>
+
+![](media/dataset.png){fig-align="center"}  
+
+- GSM8k is augmented with additonal synthetic data and NL instructions  
+
+<br/>
+<hr>
+
+![](media/ProsQA_stats.png){fig-align="center"}  
+
+::: {.notes}
+
+Let's talk about what datasets they use.  
+- They use a heavily augmented GSM8k  
+- Not sure how the second one was created  
+- Third one is based on a graph algorithm to create randomly connected graphs  
+
+- In each of these there is a question, an answer, and a set of reasoning steps, where the reasoning steps are multiple tokens. That's important for later.
+
+:::
+
+<!-- ------------------------------------------------------------------------------------- -->
+## How do they train it?
+
+- pre-trained GPT2 models
+- "multi-stage training curriculum"  
+
+![](media/training.png){fig-align="center"}  
+- $n + 1$ forward passes on each stage  
+    - no training loss for latent thoughts, so hard to parallelize training?  
+    - decomposes training into easier objectives
+
+<br/>
+
+#### Steps
+1. Data: (question, CoT for $k$ steps, answer)  
+1. In initial stage, model trained on all steps of data, like normal  
+1. At $k$th stage, the first $k$ steps are replaced with $k \times c$ continuous thoughts  
+    - $c$ is hyperparam controlling the continuous-steps-to-text-steps ratio  
+    - they insert the `<bot>` and `<eot>` tokens  
+1. reset the optimizer state between each training stage  
+1. Optimize negative log-likelihood loss; mask questions and latent thoughts  
+
+<br/>
+
+#### Inference
+- essentially normal inference procedure, slight modified
+- What triggers the `<eot>` token? Two options
+    - train binary classifier on latent thoughts to let the model decide
+    - "pad latent thoughts to constant length" (==constant number of thoughts?)
+- The use the latter after saying they are comparable
+
+
+::: {.notes}
+- So how do they train this model?  
+- I found the training procedure is a bit confusing, but I'll try my best.  
+- The break the model training down into stages, where at each stage, the replace one of the natural language thoughts with another continuous thought.  
+    - The say that this multi-stage training decomposes training into easier objectives  
+- They point out that they use n+1 forward passes on each stage and say this makes the training not very parallelizable  
+    - It seems like they generate 1 new thought on each forward pass? I didn't dig into the code for this  
+    - Why not just do single forward pass to generate all thought tokens?  
+
+- They don't calculate losses on the latent thoughts (how could you) or the questions
+
+
+- They point out that this training objective does **not** train the model to compress the removed thought, just to facilitate reasoning in latent space
+
+:::
+
+<!-- ------------------------------------------------------------------------------------- -->
+## Results
+![](media/experiments.png)  
+
+##### Math Reasoning
+- $c = 2$
+- They train for stages 0, 1, 2, 3 and additional stage
+    - additional stage uses $3 \times c$ continuous thoughts, but removes rest of language steps
+    - stage 0 for 6 epochs, 3 epochs for other stages
+
+##### Logical Reasoning
+- $c = 1$
+- They train for stages 0 - 6, 5 epochs per
+
+##### Both
+- Train at final stage for 50 epochs, use validation loss to select
+
+- `iCoT`?  
+    - somewhat similar, almost like ablating out the continuous thoughts by training gradually removing earlier reasoning tokens during training. Just predicting answer during inference
+- What are pause tokens?  
+    - additional filler tokens, like `<pause>` or `...`, that improve performance on some tasks
+
+- don't really speculate on GSM8k result
+- on "highly branching" and random ProsQA, CoT doesn't really improve over No-CoT -> latent reasoning good
+
+<br/>
+<hr>
+
+![](media/runtime.png){fig-align="center"}  
+
+- batch size 1  
+- they note that clock time $\propto$ number of newly generated tokens  
+- used `transformers` for inference 
+
+::: {.notes}
+- "leads to emergent advanced reasoning patterns"  
+    - model can encode multiple alternative next reasoning steps  
+    - leads to sort of BFS-style reasoning approach rather than the serial approach of CoT  
+- outperforms CoT in certain reasoning benchmarks that require substantial backtracking during planning
+    - Question: which tasks does it do worse on, and why?
+- uses substantially fewer tokens
+- 3 datasets  
+  - GSM8k result is midling  
+  - ProntoQA result is just as good w/ 10% of the tokens  
+  - ProsQA result is better at 30% of the tokens  
+
+- why so many epochs? They are training a langauge model in a very different way
+- inefficiency of thought tokens
+:::
+
+<!-- ------------------------------------------------------------------------------------- -->
+## Understanding Distributed Reasoning
+
+![](media/probe.png){fig-align="center" width=35%}  
+
+- "tree" vs "chain"  
+- they train probe to decode latent thought in $c = 1$ setting  
+- $3 * 3 = 9$ and $3 * 60 = 180$ $\rightarrow 55\%$ probability mass  
+
+<br/>
+<hr>
+
+![](media/case_study.png){fig-align="center"}  
+- you'll notice there are many dead ends  
+
+
+<br/>
+<hr>
+
+![](media/reasoning_process.png){fig-align="center"}  
+
+- Test time inference with `$k \in {0,1,2,3,4,5,6}$ thoughts, output the rest in NL
+- `Label`s and `Path`s depend on length of continuous and NL thoughts
+- Training for this stage mixes data from other stages
+- "As more reasoning in continuous thoughts, `Correct Path` and `Correct Label` increase" $\rightarrow$ better latent space reasoning
+    - allows model to delay hard-decisions, "allow model to eliminate incorrect options"
+
+<br/>
+<hr>
+
+![](media/probability.png){fig-align="center"}  
+
+- after `k` latent thoughts, they analyze next step probabilities for child or grandchild nodes
+- probability is calculated as conditioned token probs for each node
+- they interpret this as the model's "implicit value function"
+
+<br/>
+<hr>
+
+![](media/cumulative.png){fig-align="center"}  
+- x-axis is percentile of test cases  
+- "can encode several potential reasoning steps simultaneously and progressively eliminate incorrect paths"  
+- they refer to another [paper](https://arxiv.org/html/2406.13858/) laying the groundwork for distributional reasoning  
+
+
+::: {.notes}
+- They actually do talk about neuro-imaging for reasoning tasks in the intro  
+- Reminds me of [this](https://arxiv.org/html/2502.17480v1/) recent meta paper  
+
+- they make a point in the graph that the Coconut(k=0) vs CoT is because Coco training with mixed stages makes the model less shortsighted and point to another paper to support it. Would like to see that elaborated more  
+
+- for Figure 8, would have expected the valie of Top 1 to increase? Maybe because now we are two nodes in, it's considering more  
+:::
+
+<!-- ------------------------------------------------------------------------------------- -->
+## Thougths
+- Lots of room to improve training procedure. RL?  
+- Still requires natural language reasoning chains  
+- Thought granularity: training is based on NL steps  
+- how well does this training procedure generalize to new problem spaces?  
+
+
+::: {.notes}
+- They claim to have demonstrated that the latent thoughts significantly enhance reasoning capabilities. I think it's probably more accurate to say that they show a promising avenue
+:::

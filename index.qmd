@@ -20,18 +20,18 @@ page-layout: article
 title-block-banner: false
 title-block-style: none
 toc: false
-draft: true
+draft: false
 
 ---
 
 :::{#about}
-I am an experienced ... with interests in 
+I am an experienced engineer with diverse experience building ML systems at startups and scale ups. My interests lie in generative modeling, deep learning, and ML applied to science. I enjoy working at the intersection of research, data, and product.
 
-I have diverse experience .... Here's my [resume](resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/) if they interest you.
+In a previous life, I was a chemical engineer, designing and constructing manufacturing plants.
 
-When I'm not ...
+Here's my [resume](resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/) if they interest you.
 
-
+When I'm not at work, I enjoy climbing, fantasy or scifi audiobooks, and hanging around with friends.
 :::
 
 ## Posts

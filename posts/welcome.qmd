@@ -1,16 +1,28 @@
 ---
 title: "Welcome To My Blog"
 description: "My first post here."
-date: "2025-03-04"
+date: "2025-03-07"
 categories: [news]
-draft: true
+draft: false
 ---
 
-<!-- TODO add image -->
+Welcome! I've toyed around with the idea of starting a blog for a while, but somehow this go-around finally pushed me past the tipping point, and now that I've clicked publish, it's done.
 
-This is the first post in a Quarto blog. Welcome!
+A bit about me. I recently moved to Boston from Houston, with a year in San Diego in between. 
+
+I arrived just in time for a nice fall and my first truly snowy winter!
+
+![](media/boston_winter.jpg)
+
+Boston's definitely different from other places I've lived, with many incredible libraries, universities, meetups. Oh, and the T - I've been looking forward to living with public transport for a while, and so far I'm not disappointed.
 
 
-Really liking quarto and its flexibility.
+Some other things tech I'm interested in at the moment and will probably write more about:  
 
-Also excited about FastHTML
+- I'm really liking [Quarto](https://quarto.org/) and its flexibility. This website was relatively easy to make, and the guides are great.  
+    - I made a presentation with it recently, and while it's a different process than Google Slides, some functionality was pretty neat.  
+
+- I'm pretty interested in [FastHTML](https://fastht.ml/). I haven't done much web programming in the past, but I've recently been making more demos and dashboards for research projects, and I'm hoping to get to use it more.  
+- RL applied to language models, both in the RLHF sense, and in the verifiability sense. R1 is pretty cool, and I'm excited to see where the field goes.  
+- [dLLM](https://x.com/InceptionAILabs/status/1894847919624462794) - I'm alwasy interested in learning about makes me want to learn more about diffusion models.   
+
