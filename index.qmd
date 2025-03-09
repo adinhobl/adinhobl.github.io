@@ -29,7 +29,7 @@ I am an experienced engineer with diverse experience building ML systems at star
 
 In a previous life, I was a chemical engineer, designing and constructing manufacturing plants.
 
-Here's my [resume](resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/) if they interest you.
+Here's my [resume](/unlisted/resume.qmd) and [LinkedIn](https://www.linkedin.com/in/andrew-dinhobl/) if they interest you.
 
 When I'm not at work, I enjoy climbing, fantasy or scifi audiobooks, and hanging around with friends.
 :::

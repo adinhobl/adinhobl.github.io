@@ -60,7 +60,7 @@ editor:
 
 #pad(bottom: 2pt)[= ANDREW DINHOBL]
 
-#align(center)[#text(fill: gray, size: 0.8em)[andrewdinhobl\@gmail.com | (281) 222-0598 | #link("https://www.linkedin.com/in/andrew-dinhobl") | #link("https://github.com/adinhobl")]]
+#align(center)[#text(fill: gray, size: 0.8em)[#link("adinhobl.github.io") | #link("https://www.linkedin.com/in/andrew-dinhobl") | #link("https://github.com/adinhobl")]]
 
 #line(length: 100%, stroke: (thickness: 0.25pt, paint: gray))
 
