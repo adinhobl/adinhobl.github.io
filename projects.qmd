@@ -12,4 +12,4 @@ Some info about my projects
 ## 2025
 
 ### Proyoy
-A [game](./posts/starting-proyoy.qmd) I'm working on. 
+A [game](./posts/starting_proyoy.qmd) I'm working on. 

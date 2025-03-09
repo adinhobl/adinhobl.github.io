@@ -28,7 +28,7 @@ format:
     css: styles.scss
     toc: true
   revealjs: 
-    css: sytles.scss
+    css: styles.scss
 
 
 

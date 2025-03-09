@@ -5,7 +5,6 @@ date: "2025-03-08"
 categories: [llm]
 draft: false
 toc: false
-# css: styles.css
 ---
 
 A paper [talk](coconut_presentation/){target="_blank"} I virutally gave to Kilian Weinberger's group at Cornell about FAIR's recent [Training Large Language Models to Reason in a Continuous Latent Space](https://arxiv.org/abs/2412.06769) paper.  
