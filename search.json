@@ -1,30 +1,79 @@
 [
   {
+    "objectID": "posts/coconut.html",
+    "href": "posts/coconut.html",
+    "title": "Training Large Language Models to Reason in a Continuous Latent Space",
+    "section": "",
+    "text": "A paper talk I virutally gave to Kilian Weinberger’s group at Cornell about FAIR’s recent Training Large Language Models to Reason in a Continuous Latent Space paper.\n\n\n    \n    Click on it, then hit the left/right keys\n\n\n\nReally seems more like a distillation technique for a very targeted domain where a “step” is a very concrete idea.\n\nThis would explain the GSM8k result, since that is a much more open-ended reasoning dataset with more emphasis on natural language understanding.\n\nThis model that has been pretrained on text, and capturing all it’s embedding manipulations in a single token with each step, now has a view into the full embedding space. This isn’t something it normally sees.\n\nThis might explain why they have to do such an extensive multi-stage, many epoch training routine - to anneal the model into understanding the continuous thought tokens in the same domain as the tokens.\n\nSomeone in the discussion questioned the effectiveness of merging the token embedding space with the “reasoning” embedding space, but I actually\nReally wished they explored the binary classifier for switching between continuous thoughts and text outputs. This seems like a natural way for the model to decide when to display outputs.\n\nPotentially in a continuous, constantly streaming way?\n\nPaper generally has some good ideas, but is more like a distillation method than outright training. No attempt is made to show how this generalized, lkely because it doesn’t at all.\n\nHowever, there is is a kernel of something really good in there. The continuous thoughts are probably a step in the right direction."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Andrew Dinhobl",
     "section": "",
-    "text": "I am an experienced … with interests in\nI have diverse experience …. Here’s my resume and LinkedIn if they interest you.\nWhen I’m not …"
+    "text": "I am an experienced engineer with diverse experience building ML systems at startups and scale ups. My interests lie in generative modeling, deep learning, and ML applied to science. I enjoy working at the intersection of research, data, and product.\nIn a previous life, I was a chemical engineer, designing and constructing manufacturing plants.\nHere’s my resume and LinkedIn if they interest you.\nWhen I’m not at work, I enjoy climbing, fantasy or scifi audiobooks, and hanging around with friends."
   },
   {
     "objectID": "index.html#posts",
     "href": "index.html#posts",
     "title": "Andrew Dinhobl",
     "section": "Posts",
-    "text": "Posts\nNotes on papers I read, general thoughts, snippets of code, or new developments.\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\nMy first post here.\n\n\n\n\n\n2025-03-04\n\n\n\n\n\n\n\n\n\n\n\n\nStarting Proyoy\n\n\n\n\n\n\nnews\n\n\nllm\n\n\nrl\n\n\n\nI need to train a model to play that game\n\n\n\n\n\n2025-03-04\n\n\n\n\n\n\nNo matching items"
+    "text": "Posts\nNotes on papers I read, general thoughts, snippets of code, or new developments.\n\n\n\n\n\n\n\n\n\n\nTraining Large Language Models to Reason in a Continuous Latent Space\n\n\n\n\n\n\nllm\n\n\n\nA Paper Review\n\n\n\n\n\n2025-03-08\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\nMy first post here.\n\n\n\n\n\n2025-03-07\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
+    "objectID": "unlisted/coconut_presentation/index.html#general-concept",
+    "href": "unlisted/coconut_presentation/index.html#general-concept",
+    "title": "Coconut",
+    "section": "General Concept",
+    "text": "General Concept\n\n- 2 modes: language model and latent mode\n- use &lt;bot&gt; and &lt;eot&gt; tokens to demarcate thoughts\n\n\nEquations\n\n\\(x = (x_1, ..., x_T)\\) some input sequence of tokens to time \\(T\\):\n\n\\(e(\\cdot)\\) is token embedding function\n\n\\(E_t = [e(x_1), e(x_2), ..., e(x_t)]\\) sequence of token embeddings up to position \\(t\\)\n\n\\(H_t = \\text{Transformer}(E_t)\\); \\(H_t \\in \\mathbb{R}^{t \\times d}\\)\n\n\\(h_t\\) is last hidden state at position \\(t\\); \\(h_t=H_t[t, :]\\)\n\nTransformer model \\(M(x_{t+1}\\mid x_{\\leq t}) = \\text{softmax}(Wh_t)\\)\n\n\\(W\\) is the parameter of the language model head\n\n\\(E_t=[e(x_1), e(x_2), ..., e(&lt;bot&gt;), h_i, h_{i+1}, ..., h_{j-1}, e(&lt;eot&gt;), ..., e(x_t)]\\)\n\n\nThe authors start with an observation:\n- “most word tokens are primarily for textual coherence and not essential for reasoning, while some critical tokens require complex planning and pose huge challenges to LLMs.”\n- but that llms give the same computing budget to each token\nSo what’s the general concept:\n\n[walk through diagram]\n\nIn normal language modeling, you give a prompt, and then autoregressively generate next tokens, and feed them back as the input.\n\nIn CoT, you generate a lot of these tokens before generating a final answer\n\nThis allows the model to “reason” in text space\n\nIn this COCONUT paradigm, after a specific beginning-of-thought token, rather than decoding the transformer output embedding into a word token, it’s fed back to the LLM as the subsequent input embedding directly in the continuous space”\n\nthen there is some end-of-thought token and the model switches back into text outputs\n\nI have some equations for this we can walk through.\n\nrun the transformer blocks to get the hidden states for each token\nnormally in your transformer model M, you decode the embeddings to tokens with softmax\nbut in COCONUT, you just pass the output embeddings as the next input embeddings, bypassing tokenization and embedding"
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#interpretability",
+    "href": "unlisted/coconut_presentation/index.html#interpretability",
+    "title": "Coconut",
+    "section": "Interpretability",
+    "text": "Interpretability\n\n\nInterpretability 🐘: Is this good?\n\nPerformance ↑, intepretability ↓\nCoT / R1: “Wow! I can see what the model is thinking!”\nInterpretability was already questionable\n\n\n\n\n\nSo this obviously has implications for interpretability.\nThey make a few arguments about this:\n- The interpretability of reasoning traces was already suspect.\n- Language is low bandwidth compared to models\n- I think it’s unlikely that natural langauge will be the way models reason long term if we are optimizing for performance and cost.\n- But also, I wouldn’t get scared based on just paper; but the GPT4 version will be"
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#datasets",
+    "href": "unlisted/coconut_presentation/index.html#datasets",
+    "title": "Coconut",
+    "section": "Datasets",
+    "text": "Datasets\n\n3 datasets: augmented GSM8k + 2 constructed reasoning datasets\n\nNote that a step is a reasoning step composed of many tokens\n\n\n\n\n\n\n\n\n\n\nGSM8k is augmented with additonal synthetic data and NL instructions\n\n\n\n\n\n\n\n\n\nLet’s talk about what datasets they use.\n- They use a heavily augmented GSM8k\n- Not sure how the second one was created\n- Third one is based on a graph algorithm to create randomly connected graphs\n\nIn each of these there is a question, an answer, and a set of reasoning steps, where the reasoning steps are multiple tokens. That’s important for later."
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#how-do-they-train-it",
+    "href": "unlisted/coconut_presentation/index.html#how-do-they-train-it",
+    "title": "Coconut",
+    "section": "How do they train it?",
+    "text": "How do they train it?\n\npre-trained GPT2 models\n“multi-stage training curriculum”\n\n\n- \\(n + 1\\) forward passes on each stage\n- no training loss for latent thoughts, so hard to parallelize training?\n- decomposes training into easier objectives\n\nSteps\n\nData: (question, CoT for \\(k\\) steps, answer)\n\nIn initial stage, model trained on all steps of data, like normal\n\nAt \\(k\\)th stage, the first \\(k\\) steps are replaced with \\(k \\times c\\) continuous thoughts\n\n\\(c\\) is hyperparam controlling the continuous-steps-to-text-steps ratio\n\nthey insert the &lt;bot&gt; and &lt;eot&gt; tokens\n\n\nreset the optimizer state between each training stage\n\nOptimize negative log-likelihood loss; mask questions and latent thoughts\n\n\nInference\n\nessentially normal inference procedure, slight modified\nWhat triggers the &lt;eot&gt; token? Two options\n\ntrain binary classifier on latent thoughts to let the model decide\n“pad latent thoughts to constant length” (==constant number of thoughts?)\n\nThe use the latter after saying they are comparable\n\n\n\nSo how do they train this model?\n\nI found the training procedure is a bit confusing, but I’ll try my best.\n\nThe break the model training down into stages, where at each stage, the replace one of the natural language thoughts with another continuous thought.\n\nThe say that this multi-stage training decomposes training into easier objectives\n\n\nThey point out that they use n+1 forward passes on each stage and say this makes the training not very parallelizable\n\nIt seems like they generate 1 new thought on each forward pass? I didn’t dig into the code for this\n\nWhy not just do single forward pass to generate all thought tokens?\n\nThey don’t calculate losses on the latent thoughts (how could you) or the questions\nThey point out that this training objective does not train the model to compress the removed thought, just to facilitate reasoning in latent space"
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#results",
+    "href": "unlisted/coconut_presentation/index.html#results",
+    "title": "Coconut",
+    "section": "Results",
+    "text": "Results\n\nMath Reasoning\n\n\\(c = 2\\)\nThey train for stages 0, 1, 2, 3 and additional stage\n\nadditional stage uses \\(3 \\times c\\) continuous thoughts, but removes rest of language steps\nstage 0 for 6 epochs, 3 epochs for other stages\n\n\nLogical Reasoning\n\n\\(c = 1\\)\nThey train for stages 0 - 6, 5 epochs per\n\nBoth\n\nTrain at final stage for 50 epochs, use validation loss to select\niCoT?\n\nsomewhat similar, almost like ablating out the continuous thoughts by training gradually removing earlier reasoning tokens during training. Just predicting answer during inference\n\nWhat are pause tokens?\n\nadditional filler tokens, like &lt;pause&gt; or ..., that improve performance on some tasks\n\ndon’t really speculate on GSM8k result\non “highly branching” and random ProsQA, CoT doesn’t really improve over No-CoT -&gt; latent reasoning good\n\n\n\n\n\n\n\n\n\nbatch size 1\n\nthey note that clock time \\(\\propto\\) number of newly generated tokens\n\nused transformers for inference\n\n\n\n“leads to emergent advanced reasoning patterns”\n\nmodel can encode multiple alternative next reasoning steps\n\nleads to sort of BFS-style reasoning approach rather than the serial approach of CoT\n\n\noutperforms CoT in certain reasoning benchmarks that require substantial backtracking during planning\n\nQuestion: which tasks does it do worse on, and why?\n\nuses substantially fewer tokens\n3 datasets\n\nGSM8k result is midling\n\nProntoQA result is just as good w/ 10% of the tokens\n\nProsQA result is better at 30% of the tokens\n\nwhy so many epochs? They are training a langauge model in a very different way\ninefficiency of thought tokens"
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#understanding-distributed-reasoning",
+    "href": "unlisted/coconut_presentation/index.html#understanding-distributed-reasoning",
+    "title": "Coconut",
+    "section": "Understanding Distributed Reasoning",
+    "text": "Understanding Distributed Reasoning\n\n\n\n\n\n\n“tree” vs “chain”\n\nthey train probe to decode latent thought in \\(c = 1\\) setting\n\n\\(3 * 3 = 9\\) and \\(3 * 60 = 180\\) \\(\\rightarrow 55\\%\\) probability mass\n\n\n\n\n- you’ll notice there are many dead ends\n\n\n\n\n\n\n\n\nTest time inference with `\\(k \\in {0,1,2,3,4,5,6}\\) thoughts, output the rest in NL\nLabels and Paths depend on length of continuous and NL thoughts\nTraining for this stage mixes data from other stages\n“As more reasoning in continuous thoughts, Correct Path and Correct Label increase” \\(\\rightarrow\\) better latent space reasoning\n\nallows model to delay hard-decisions, “allow model to eliminate incorrect options”\n\n\n\n\n\n\n\n\n\n\nafter k latent thoughts, they analyze next step probabilities for child or grandchild nodes\nprobability is calculated as conditioned token probs for each node\nthey interpret this as the model’s “implicit value function”\n\n\n\n\n- x-axis is percentile of test cases\n- “can encode several potential reasoning steps simultaneously and progressively eliminate incorrect paths”\n- they refer to another paper laying the groundwork for distributional reasoning\n\n\nThey actually do talk about neuro-imaging for reasoning tasks in the intro\n\nReminds me of this recent meta paper\nthey make a point in the graph that the Coconut(k=0) vs CoT is because Coco training with mixed stages makes the model less shortsighted and point to another paper to support it. Would like to see that elaborated more\nfor Figure 8, would have expected the valie of Top 1 to increase? Maybe because now we are two nodes in, it’s considering more"
+  },
+  {
+    "objectID": "unlisted/coconut_presentation/index.html#thougths",
+    "href": "unlisted/coconut_presentation/index.html#thougths",
+    "title": "Coconut",
+    "section": "Thougths",
+    "text": "Thougths\n\nLots of room to improve training procedure. RL?\n\nStill requires natural language reasoning chains\n\nThought granularity: training is based on NL steps\n\nhow well does this training procedure generalize to new problem spaces?\n\n\n\nThey claim to have demonstrated that the latent thoughts significantly enhance reasoning capabilities. I think it’s probably more accurate to say that they show a promising avenue"
+  },
+  {
+    "objectID": "posts/welcome.html",
+    "href": "posts/welcome.html",
+    "title": "Welcome To My Blog",
     "section": "",
-    "text": "Some info about my projects"
-  },
-  {
-    "objectID": "projects.html#section",
-    "href": "projects.html#section",
-    "title": "Projects",
-    "section": "2025",
-    "text": "2025\n\nProyoy\nA game I’m working on."
+    "text": "Welcome! I’ve toyed around with the idea of starting a blog for a while, but somehow this go-around finally pushed me past the tipping point, and now that I’ve clicked publish, it’s done.\nA bit about me. I recently moved to Boston from Houston, with a year in San Diego in between.\nI arrived just in time for a nice fall and my first truly snowy winter!\n\nBoston’s definitely different from other places I’ve lived, with many incredible libraries, universities, meetups. Oh, and the T - I’ve been looking forward to living with public transport for a while, and so far I’m not disappointed.\nSome other things tech I’m interested in at the moment and will probably write more about:\n\nI’m really liking Quarto and its flexibility. This website was relatively easy to make, and the guides are great.\n\nI made a presentation with it recently, and while it’s a different process than Google Slides, some functionality was pretty neat.\n\nI’m pretty interested in FastHTML. I haven’t done much web programming in the past, but I’ve recently been making more demos and dashboards for research projects, and I’m hoping to get to use it more.\n\nRL applied to language models, both in the RLHF sense, and in the verifiability sense. R1 is pretty cool, and I’m excited to see where the field goes.\n\ndLLM - I’m alwasy interested in learning about makes me want to learn more about diffusion models."
   }
 ]

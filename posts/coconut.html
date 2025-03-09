@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-03-08">
+<meta name="description" content="A Paper Review">
 
-<title>resume – Andrew Dinhobl</title>
+<title>Training Large Language Models to Reason in a Continuous Latent Space – Andrew Dinhobl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +25,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-357c9a3cbdff96298a580849bfc8473e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f92c99e7412e7e93dfcddc0b2aee46ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,22 +71,25 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Andrew Dinhobl">
+<link rel="stylesheet" href="../styles.scss">
+<link rel="stylesheet" href="styles.scss">
+<meta property="og:title" content="Training Large Language Models to Reason in a Continuous Latent Space – Andrew Dinhobl">
+<meta property="og:description" content="A Paper Review">
 <meta property="og:site_name" content="Andrew Dinhobl">
-<meta name="twitter:title" content="Andrew Dinhobl">
+<meta name="twitter:title" content="Training Large Language Models to Reason in a Continuous Latent Space – Andrew Dinhobl">
+<meta name="twitter:description" content="A Paper Review">
 <meta name="twitter:creator" content="@adinhobl">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Andrew Dinhobl</span>
     </a>
   </div>
@@ -93,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -118,18 +128,72 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Training Large Language Models to Reason in a Continuous Latent Space</h1>
+                  <div>
+        <div class="description">
+          A Paper Review
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">llm</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 8, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="resume.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+
+<p>A paper <a href="../unlisted/coconut_presentation/" target="_blank">talk</a> I virutally gave to Kilian Weinberger’s group at Cornell about FAIR’s recent <a href="https://arxiv.org/abs/2412.06769">Training Large Language Models to Reason in a Continuous Latent Space</a> paper.</p>
+<div>
+<figure class="figure">
+    <iframe class="slide-deck" src="../unlisted/coconut_presentation/"></iframe>
+    <figcaption>Click on it, then hit the left/right keys</figcaption>
+</figure>
+</div>
+<ul>
+<li><p>Really seems more like a distillation technique for a very targeted domain where a “step” is a very concrete idea.</p>
+<ul>
+<li>This would explain the GSM8k result, since that is a much more open-ended reasoning dataset with more emphasis on natural language understanding.</li>
+</ul></li>
+<li><p>This model that has been pretrained on text, and capturing all it’s embedding manipulations in a single token with each step, now has a view into the full embedding space. This isn’t something it normally sees.</p>
+<ul>
+<li>This might explain why they have to do such an extensive multi-stage, many epoch training routine - to anneal the model into understanding the continuous thought tokens in the same domain as the tokens.</li>
+</ul></li>
+<li><p>Someone in the discussion questioned the effectiveness of merging the token embedding space with the “reasoning” embedding space, but I actually</p></li>
+<li><p>Really wished they explored the binary classifier for switching between continuous thoughts and text outputs. This seems like a natural way for the model to decide when to display outputs.</p>
+<ul>
+<li>Potentially in a continuous, constantly streaming way?</li>
+</ul></li>
+<li><p>Paper generally has some good ideas, but is more like a distillation method than outright training. No attempt is made to show how this generalized, lkely because it doesn’t at all.<br>
+</p></li>
+<li><p>However, there is is a kernel of something really good in there. The continuous thoughts are probably a step in the right direction.</p></li>
+</ul>
 
 
 
@@ -224,7 +288,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/adinhobl\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
