@@ -27,8 +27,6 @@ format:
     theme: lux
     css: styles.scss
     toc: true
-  revealjs: 
-    css: styles.scss
 
 
 

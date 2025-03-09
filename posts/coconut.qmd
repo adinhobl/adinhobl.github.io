@@ -17,7 +17,6 @@ A paper [talk](coconut_presentation/){target="_blank"} I virutally gave to Kilia
     <iframe class="slide-deck" src="coconut_presentation/"></iframe>
     <figcaption>Click on it, then hit the left/right keys</figcaption>
 </figure>
-
 ```
 </div>
 
