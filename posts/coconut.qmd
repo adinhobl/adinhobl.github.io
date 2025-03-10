@@ -10,16 +10,18 @@ image: ../unlisted/coconut_presentation/media/overview.png
 
 A paper [presentation](../unlisted/coconut_presentation/){target="_blank"} I virutally gave to Kilian Weinberger's group at Cornell about FAIR's recent [Training Large Language Models to Reason in a Continuous Latent Space](https://arxiv.org/abs/2412.06769) paper.  
 
+
 <div>
 ```{=html}
 <figure>
     <iframe class="slide-deck" src="../unlisted/coconut_presentation/"></iframe>
-    <figcaption>Click on it, then hit the left/right keys. Hit 's' for speaker notes.</figcaption>
+    <figcaption>Click on it, then hit the left/right keys. Hit 's' for speaker notes. Scroll in the slides.</figcaption>
 </figure>
 ```
+
 </div>
 
-
+Some points from the paper and the discussion:  
 
 - This really seems more like a distillation technique for a very targeted domain where a "step" is a very concrete idea.  
     - This would explain the GSM8k result, since that is a much more open-ended reasoning dataset with more emphasis on natural language understanding, and has less of a "nicely constructed graph" feel.  

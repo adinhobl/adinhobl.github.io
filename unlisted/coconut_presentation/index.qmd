@@ -271,7 +271,7 @@ Let's talk about what datasets they use.
 :::
 
 <!-- ------------------------------------------------------------------------------------- -->
-## Thougths
+## Thoughts
 - Lots of room to improve training procedure. RL?  
 - Still requires natural language reasoning chains  
 - Thought granularity: training is based on NL steps  

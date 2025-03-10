@@ -6,4 +6,4 @@
 
 # Enable banner style title blocks
 title-block-banner: true
-css: styles.scss
+css: styles.css

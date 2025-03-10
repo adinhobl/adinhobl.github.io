@@ -27,7 +27,7 @@ website:
 format:
   html:
     theme: lux
-    css: styles.scss
+    css: styles.css
     toc: true
 # editor:
 #   render-on-save: true # https://quarto.org/docs/tools/vscode.html#render-on-save
