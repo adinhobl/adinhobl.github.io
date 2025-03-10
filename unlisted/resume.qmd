@@ -9,8 +9,6 @@ format:
       right: 0.4in
     columns: 1
     keep-typ: false
-editor:
-  render-on-save: true # https://quarto.org/docs/tools/vscode.html#render-on-save
 ---
 
 ```{=typst}

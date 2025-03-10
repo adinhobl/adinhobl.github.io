@@ -29,7 +29,8 @@ format:
     theme: lux
     css: styles.scss
     toc: true
-
+# editor:
+#   render-on-save: true # https://quarto.org/docs/tools/vscode.html#render-on-save
 
 
 # TODO set up giscus https://giscus.app/

@@ -14,7 +14,7 @@ A paper [presentation](../unlisted/coconut_presentation/){target="_blank"} I vir
 ```{=html}
 <figure>
     <iframe class="slide-deck" src="../unlisted/coconut_presentation/"></iframe>
-    <figcaption>Click on it, then hit the left/right keys</figcaption>
+    <figcaption>Click on it, then hit the left/right keys. Hit 's' for speaker notes.</figcaption>
 </figure>
 ```
 </div>
@@ -35,4 +35,5 @@ A paper [presentation](../unlisted/coconut_presentation/){target="_blank"} I vir
     - Potentially in a continuous, constantly streaming way, where the model takes in new information from the outside world through something like function-calling, then does some continuous thinking, and then outputs intermediate results through text or other function-calls.  
 
 - While the paper generally has some good ideas, but is more like a distillation method than outright training. No attempt is made to show how this generalized, lkely because it doesn't at all.  
+
 - However, there is is a kernel of something really good in there. The continuous thoughts are probably a step in the right direction and are closer to where this field will likely end up.  
